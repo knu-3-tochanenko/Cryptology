@@ -1,4 +1,4 @@
-package common;
+package com.tochanenko.common;
 
 public class ANSI {
     public static final String RESET  = "\u001B[0m";

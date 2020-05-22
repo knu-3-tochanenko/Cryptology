@@ -32,4 +32,4 @@ jacoco {
     reportsDir = file("$buildDir/jacoco")
 }
 
-mainClassName = "common.Main"
+mainClassName = "com.tochanenko.common.Main"

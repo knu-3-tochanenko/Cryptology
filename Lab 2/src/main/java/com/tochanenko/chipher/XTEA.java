@@ -1,4 +1,4 @@
-package chipher;
+package com.tochanenko.chipher;
 
 import java.util.Base64;
 

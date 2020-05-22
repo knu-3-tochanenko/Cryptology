@@ -1,8 +1,6 @@
-package common;
+package com.tochanenko.common;
 
-import chipher.XTEA;
-
-import java.util.Arrays;
+import com.tochanenko.chipher.XTEA;
 
 public class Main {
     public static void main(String[] args) {

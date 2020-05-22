@@ -1,4 +1,4 @@
-package chipher;
+package com.tochanenko.chipher;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,12 +8,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class XTEARandomKeyTest {
 
-    private static final Random random = new Random(123456);
+    private static final Random RANDOM = new Random(123456);
 
     @Test
     void withByteArray() {
         byte[] key = new byte[16];
-        random.nextBytes(key);
+        RANDOM.nextBytes(key);
         XTEA xtea = new XTEA(key);
 
         for (int i = 1; i < 17; i++) {
@@ -28,7 +28,7 @@ public class XTEARandomKeyTest {
     @Test
     void withBase64() {
         byte[] key = new byte[16];
-        random.nextBytes(key);
+        RANDOM.nextBytes(key);
         XTEA xtea = new XTEA(key);
 
         for (int i = 1; i < 17; i++) {
@@ -41,13 +41,13 @@ public class XTEARandomKeyTest {
     }
 
     private byte randomCharacter() {
-        switch (random.nextInt(3)) {
+        switch (RANDOM.nextInt(3)) {
             case 0:
-                return (byte)(random.nextInt('z' - 'a') + 'a');
+                return (byte)(RANDOM.nextInt('z' - 'a') + 'a');
             case 1:
-                return (byte)(random.nextInt('Z' - 'A') + 'A');
+                return (byte)(RANDOM.nextInt('Z' - 'A') + 'A');
             case 2:
-                return (byte)(random.nextInt('9' - '0') + '0');
+                return (byte)(RANDOM.nextInt('9' - '0') + '0');
         }
         return 0;
     }
