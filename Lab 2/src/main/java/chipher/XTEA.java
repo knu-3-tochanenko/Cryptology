@@ -1,15 +1,19 @@
+package chipher;
+
+import java.util.Base64;
+
 public class XTEA {
     private final static int DELTA = 0x9E3779B9;
     private final static int ROUNDS = 32;
     private final static int UNDELTA = 0xC6EF3720;
 
-    private int[] K = new int[4];
+    private final int[] K = new int[4];
 
     public XTEA(byte[] key) {
         if (key == null)
-            throw new RuntimeException("Invalid key: Key was null");
+            throw new IllegalArgumentException("Key should not be null");
         if (key.length != 16)
-            throw new RuntimeException("Invalid key: Length was less than 16 bytes");
+            throw new IllegalArgumentException("Key should be 16 characters long");
         for (int off = 0, i = 0; i < 4; i++) {
             K[i] = ((key[off++] & 0xff)) |
                     ((key[off++] & 0xff) << 8) |
@@ -18,24 +22,46 @@ public class XTEA {
         }
     }
 
+    public String decryptFromBase64(String string) {
+        checkString(string);
 
-    public byte[] encrypt(byte[] clear) {
-        int paddedSize = ((clear.length / 8) + (((clear.length % 8) == 0) ? 0 : 1)) * 2;
+        return decrypt(Base64.getDecoder().decode(string));
+    }
+
+    public String encryptToBase64(String string) {
+        checkString(string);
+
+        return new String(Base64.getEncoder().encode(encrypt(string)));
+    }
+
+
+    public byte[] encrypt(String string) {
+        checkString(string);
+
+        byte[] byteArray = string.getBytes();
+        int paddedSize = ((byteArray.length / 8) + (((byteArray.length % 8) == 0) ? 0 : 1)) * 2;
         int[] buffer = new int[paddedSize + 1];
-        buffer[0] = clear.length;
-        pack(clear, buffer, 1);
+        buffer[0] = byteArray.length;
+        pack(byteArray, buffer, 1);
         encodeBuffer(buffer);
         return unpack(buffer, 0, buffer.length * 4);
     }
 
 
-    public byte[] decrypt(byte[] crypt) {
-        assert crypt.length % 4 == 0;
-        assert (crypt.length / 4) % 2 == 1;
-        int[] buffer = new int[crypt.length / 4];
-        pack(crypt, buffer, 0);
+    public String decrypt(byte[] byteArray) {
+        assert byteArray.length % 4 == 0;
+        assert (byteArray.length / 4) % 2 == 1;
+        int[] buffer = new int[byteArray.length / 4];
+        pack(byteArray, buffer, 0);
         decodeBuffer(buffer);
-        return unpack(buffer, 1, buffer[0]);
+        return new String(unpack(buffer, 1, buffer[0]));
+    }
+
+    private void checkString(String string) {
+        if (string == null)
+            throw new IllegalArgumentException("String should not be null");
+        if (string.length() == 0)
+            throw new IllegalArgumentException("String should not be empty");
     }
 
     private void encodeBuffer(int[] buf) {
