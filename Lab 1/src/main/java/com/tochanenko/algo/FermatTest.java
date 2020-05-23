@@ -2,7 +2,6 @@ package com.tochanenko.algo;
 
 import java.math.BigInteger;
 
-import static com.tochanenko.algo.BigIntegerUtils.pow;
 import static com.tochanenko.algo.BigIntegerUtils.random;
 
 public class FermatTest {
@@ -23,14 +22,13 @@ public class FermatTest {
         if (number.compareTo(BigInteger.valueOf(4)) < 0)
             throw new IllegalArgumentException("Number should be greater then 3");
 
-        BigInteger aInPower, randomValue;
+        BigInteger randomValue;
         BigInteger numberMinusOne = number.subtract(BigInteger.ONE);
         BigInteger numberMinusTwo = number.subtract(BigInteger.TWO);
 
         for (int i = 0; i < this.k; i++) {
             randomValue = random(BigInteger.TWO, numberMinusTwo, seed);
-            aInPower = pow(randomValue, numberMinusOne);
-            if (aInPower.mod(number).compareTo(BigInteger.ONE) != 0)
+            if (randomValue.modPow(numberMinusOne, number).compareTo(BigInteger.ONE) != 0)
                 return false;
         }
         return true;

@@ -27,7 +27,7 @@ class FermatTestTest {
         assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(4)));
         assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(16)));
         assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(10025)));
-        assertFalse(FIXED_SEED_LOW.test(pow(BigInteger.valueOf(32), BigInteger.TWO)));
+        assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(2147483646)));
 
         assertTrue(FIXED_SEED_LOW.test(BigInteger.valueOf(5)));
         assertTrue(FIXED_SEED_LOW.test(BigInteger.valueOf(17)));
@@ -38,10 +38,12 @@ class FermatTestTest {
         assertFalse(FIXED_SEED_HIGH.test(BigInteger.valueOf(4)));
         assertFalse(FIXED_SEED_HIGH.test(BigInteger.valueOf(16)));
         assertFalse(FIXED_SEED_HIGH.test(BigInteger.valueOf(10025)));
-        assertFalse(FIXED_SEED_HIGH.test(pow(BigInteger.valueOf(32), BigInteger.TWO)));
+        assertFalse(FIXED_SEED_HIGH.test(pow(BigInteger.valueOf(64), BigInteger.TWO)));
 
         assertTrue(FIXED_SEED_HIGH.test(BigInteger.valueOf(5)));
         assertTrue(FIXED_SEED_HIGH.test(BigInteger.valueOf(17)));
+        assertTrue(FIXED_SEED_HIGH.test(BigInteger.valueOf(2147483647).add(BigInteger.valueOf(12))));
+
     }
 
 
