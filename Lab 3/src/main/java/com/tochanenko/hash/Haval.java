@@ -1,7 +1,7 @@
 package com.tochanenko.hash;
 
 public class Haval {
-    private HavalHash hash;
+    private final HavalHash hash;
 
     public Haval() {
         hash = new HavalHash();

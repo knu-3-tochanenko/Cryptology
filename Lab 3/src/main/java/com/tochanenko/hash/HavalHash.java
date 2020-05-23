@@ -7,10 +7,6 @@ public class HavalHash {
 
     private static final int BLOCK_SIZE = 128;
 
-    private static final String DIGEST0 = "C68F39913F901F3DDF44C707357A7D70";
-
-    private static Boolean valid;
-
     private int rounds = HAVAL_3_ROUND;
 
     private int h0, h1, h2, h3, h4, h5, h6, h7;
@@ -34,7 +30,7 @@ public class HavalHash {
         resetContext();
     }
 
-    public void update(byte[] b, int offset, int len) {
+    protected void update(byte[] b, int offset, int len) {
         int n = (int) (count % blockSize);
         count += len;
         int partLen = blockSize - n;
@@ -54,7 +50,7 @@ public class HavalHash {
         }
     }
 
-    public byte[] digest() {
+    protected byte[] digest() {
         byte[] tail = padBuffer();
         update(tail, 0, tail.length);
         byte[] result = getResult();
@@ -64,7 +60,7 @@ public class HavalHash {
         return result;
     }
 
-    public void reset() {
+    protected void reset() {
         count = 0L;
         for (int i = 0; i < blockSize; ) {
             buffer[i++] = 0;
@@ -74,15 +70,15 @@ public class HavalHash {
     }
     //------------------------------------------------------------------------
 
-    public HavalHash() {
+    protected HavalHash() {
         this(HAVAL_128_BIT, HAVAL_3_ROUND);
     }
 
-    public HavalHash(int size) {
+    protected HavalHash(int size) {
         this(size, HAVAL_3_ROUND);
     }
 
-    public HavalHash(int size, int rounds) {
+    protected HavalHash(int size, int rounds) {
         this("Haval Hash", size, BLOCK_SIZE);
 
         if (size != HAVAL_128_BIT
@@ -115,7 +111,7 @@ public class HavalHash {
         this.buffer = (byte[]) md.buffer.clone();
     }
 
-    public Object clone() {
+    protected Object clone() {
         return new HavalHash(this);
     }
 
@@ -373,7 +369,7 @@ public class HavalHash {
         return result;
     }
 
-    public byte[] getResult() {
+    protected byte[] getResult() {
         tailorDigestBits();
 
         byte[] result = new byte[hashSize];
@@ -421,7 +417,7 @@ public class HavalHash {
         return result;
     }
 
-    public void resetContext() {
+    protected void resetContext() {
         h0 = 0x243F6A88;
         h1 = 0x85A308D3;
         h2 = 0x13198A2E;
@@ -430,13 +426,6 @@ public class HavalHash {
         h5 = 0x299F31D0;
         h6 = 0x082EFA98;
         h7 = 0xEC4E6C89;
-    }
-
-    public boolean selfTest() {
-        if (valid == null) {
-            valid = DIGEST0.equals(Util.toString(new HavalHash().digest()));
-        }
-        return valid;
     }
 
     private void tailorDigestBits() {
