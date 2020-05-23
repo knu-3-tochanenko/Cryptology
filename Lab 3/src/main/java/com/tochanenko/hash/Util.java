@@ -7,7 +7,7 @@ public class Util {
         return toString(ba, 0, ba.length);
     }
 
-    public static final String toString(byte[] ba, int offset, int length) {
+    public static String toString(byte[] ba, int offset, int length) {
         char[] buf = new char[length * 2];
         for (int i = 0, j = 0, k; i < length; ) {
             k = ba[offset + i++];

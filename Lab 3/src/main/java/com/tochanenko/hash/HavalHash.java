@@ -6,18 +6,14 @@ import static com.tochanenko.hash.HavalSpec.*;
 public class HavalHash {
 
     private static final int BLOCK_SIZE = 128;
-
-    private int rounds = HAVAL_3_ROUND;
-
-    private int h0, h1, h2, h3, h4, h5, h6, h7;
-
-    //------------------------------------------------------------------------
     protected String name;
     protected int hashSize;
     protected int blockSize;
     // Number of processed bytes
     protected long count;
     protected byte[] buffer;
+    private int rounds = HAVAL_3_ROUND;
+    private int h0, h1, h2, h3, h4, h5, h6, h7;
 
     protected HavalHash(String name, int hashSize, int blockSize) {
         super();
@@ -28,6 +24,29 @@ public class HavalHash {
         this.buffer = new byte[blockSize];
 
         resetContext();
+    }
+
+    protected HavalHash() {
+        this(HAVAL_128_BIT, HAVAL_3_ROUND);
+    }
+
+
+    protected HavalHash(int size, int rounds) {
+        this("Haval Hash", size, BLOCK_SIZE);
+
+        if (size != HAVAL_128_BIT
+                && size != HAVAL_160_BIT
+                && size != HAVAL_192_BIT
+                && size != HAVAL_224_BIT
+                && size != HAVAL_256_BIT) {
+            throw new IllegalArgumentException("Invalid HAVAL output size");
+        }
+
+        if (rounds != HAVAL_3_ROUND && rounds != HAVAL_4_ROUND && rounds != HAVAL_5_ROUND) {
+            throw new IllegalArgumentException("Invalid HAVAL number of rounds");
+        }
+
+        this.rounds = rounds;
     }
 
     protected void update(byte[] b, int offset, int len) {
@@ -68,54 +87,8 @@ public class HavalHash {
 
         resetContext();
     }
-    //------------------------------------------------------------------------
 
-    protected HavalHash() {
-        this(HAVAL_128_BIT, HAVAL_3_ROUND);
-    }
-
-    protected HavalHash(int size) {
-        this(size, HAVAL_3_ROUND);
-    }
-
-    protected HavalHash(int size, int rounds) {
-        this("Haval Hash", size, BLOCK_SIZE);
-
-        if (size != HAVAL_128_BIT
-                && size != HAVAL_160_BIT
-                && size != HAVAL_192_BIT
-                && size != HAVAL_224_BIT
-                && size != HAVAL_256_BIT) {
-            throw new IllegalArgumentException("Invalid HAVAL output size");
-        }
-
-        if (rounds != HAVAL_3_ROUND && rounds != HAVAL_4_ROUND && rounds != HAVAL_5_ROUND) {
-            throw new IllegalArgumentException("Invalid HAVAL number of rounds");
-        }
-
-        this.rounds = rounds;
-    }
-
-    private HavalHash(HavalHash md) {
-        this(md.hashSize, md.rounds);
-
-        this.h0 = md.h0;
-        this.h1 = md.h1;
-        this.h2 = md.h2;
-        this.h3 = md.h3;
-        this.h4 = md.h4;
-        this.h5 = md.h5;
-        this.h6 = md.h6;
-        this.h7 = md.h7;
-        this.count = md.count;
-        this.buffer = (byte[]) md.buffer.clone();
-    }
-
-    protected Object clone() {
-        return new HavalHash(this);
-    }
-
-    protected synchronized void transform(byte[] in, int i) {
+    private synchronized void transform(byte[] in, int i) {
         int X0 = (in[i++] & 0xFF) | (in[i++] & 0xFF) << 8 | (in[i++] & 0xFF) << 16 | (in[i++] & 0xFF) << 24;
         int X1 = (in[i++] & 0xFF) | (in[i++] & 0xFF) << 8 | (in[i++] & 0xFF) << 16 | (in[i++] & 0xFF) << 24;
         int X2 = (in[i++] & 0xFF) | (in[i++] & 0xFF) << 8 | (in[i++] & 0xFF) << 16 | (in[i++] & 0xFF) << 24;
@@ -346,7 +319,7 @@ public class HavalHash {
         h0 += t0;
     }
 
-    protected byte[] padBuffer() {
+    private byte[] padBuffer() {
         int n = (int) (count % BLOCK_SIZE);
         int padding = (n < 118) ? (118 - n) : (246 - n);
         byte[] result = new byte[padding + 10];
@@ -417,7 +390,7 @@ public class HavalHash {
         return result;
     }
 
-    protected void resetContext() {
+    private void resetContext() {
         h0 = 0x243F6A88;
         h1 = 0x85A308D3;
         h2 = 0x13198A2E;

@@ -1,7 +1,6 @@
 package com.tochanenko.common;
 
 import com.tochanenko.hash.Haval;
-import com.tochanenko.hash.HavalHash;
 
 import static com.tochanenko.hash.HavalSpec.*;
 
