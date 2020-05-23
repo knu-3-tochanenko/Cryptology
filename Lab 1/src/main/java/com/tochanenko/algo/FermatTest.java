@@ -1,44 +1,38 @@
 package com.tochanenko.algo;
 
 import java.math.BigInteger;
-import java.util.Random;
+
+import static com.tochanenko.algo.BigIntegerUtils.pow;
+import static com.tochanenko.algo.BigIntegerUtils.random;
 
 public class FermatTest {
     private final int k;
-    private final Random random;
+    private final long seed;
 
     public FermatTest(int k) {
         this.k = k;
-        this.random = new Random(System.currentTimeMillis());
+        this.seed = System.currentTimeMillis();
     }
 
     public FermatTest(int k, long seed) {
         this.k = k;
-        this.random = new Random(seed);
+        this.seed = seed;
     }
 
-    public boolean test(int number) {
-        if (number < 4)
+    public boolean test(BigInteger number) {
+        if (number.compareTo(BigInteger.valueOf(4)) < 0)
             throw new IllegalArgumentException("Number should be greater then 3");
 
-        BigInteger aInN;
-        BigInteger mod = BigInteger.valueOf(number);
-        int randomValue;
+        BigInteger aInPower, randomValue;
+        BigInteger numberMinusOne = number.subtract(BigInteger.ONE);
+        BigInteger numberMinusTwo = number.subtract(BigInteger.TWO);
 
         for (int i = 0; i < this.k; i++) {
-            randomValue = random.nextInt(number - 3) + 2;
-            aInN = pow(randomValue, number - 1);
-            if (aInN.mod(mod).compareTo(BigInteger.ONE) != 0)
+            randomValue = random(BigInteger.TWO, numberMinusTwo, seed);
+            aInPower = pow(randomValue, numberMinusOne);
+            if (aInPower.mod(number).compareTo(BigInteger.ONE) != 0)
                 return false;
         }
         return true;
-    }
-
-    private BigInteger pow(int number, int power) {
-        BigInteger res = BigInteger.valueOf(number);
-        BigInteger toMultiply = BigInteger.valueOf(number);
-        for (int i = 1; i < power; i++)
-            res = res.multiply(toMultiply);
-        return res;
     }
 }

@@ -2,6 +2,9 @@ package com.tochanenko.algo;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigInteger;
+
+import static com.tochanenko.algo.BigIntegerUtils.pow;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FermatTestTest {
@@ -11,22 +14,35 @@ class FermatTestTest {
 
     @Test
     void testIllegalArguments() {
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(-1));
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(0));
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(1));
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(2));
-        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(3));
-        assertDoesNotThrow(() -> RANDOM_SEED.test(4));
+        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(-1)));
+        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(0)));
+        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(1)));
+        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(2)));
+        assertThrows(IllegalArgumentException.class, () -> RANDOM_SEED.test(BigInteger.valueOf(3)));
+        assertDoesNotThrow(() -> RANDOM_SEED.test(BigInteger.valueOf(4)));
     }
 
     @Test
     void testLow() {
-        assertFalse(FIXED_SEED_LOW.test(4));
-        assertFalse(FIXED_SEED_LOW.test(16));
-        assertFalse(FIXED_SEED_LOW.test(10025));
+        assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(4)));
+        assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(16)));
+        assertFalse(FIXED_SEED_LOW.test(BigInteger.valueOf(10025)));
+        assertFalse(FIXED_SEED_LOW.test(pow(BigInteger.valueOf(32), BigInteger.TWO)));
 
-        assertTrue(FIXED_SEED_LOW.test(5));
-        assertTrue(FIXED_SEED_LOW.test(17));
-        assertTrue(FIXED_SEED_LOW.test(5));
+        assertTrue(FIXED_SEED_LOW.test(BigInteger.valueOf(5)));
+        assertTrue(FIXED_SEED_LOW.test(BigInteger.valueOf(17)));
     }
+
+    @Test
+    void testHigh() {
+        assertFalse(FIXED_SEED_HIGH.test(BigInteger.valueOf(4)));
+        assertFalse(FIXED_SEED_HIGH.test(BigInteger.valueOf(16)));
+        assertFalse(FIXED_SEED_HIGH.test(BigInteger.valueOf(10025)));
+        assertFalse(FIXED_SEED_HIGH.test(pow(BigInteger.valueOf(32), BigInteger.TWO)));
+
+        assertTrue(FIXED_SEED_HIGH.test(BigInteger.valueOf(5)));
+        assertTrue(FIXED_SEED_HIGH.test(BigInteger.valueOf(17)));
+    }
+
+
 }
