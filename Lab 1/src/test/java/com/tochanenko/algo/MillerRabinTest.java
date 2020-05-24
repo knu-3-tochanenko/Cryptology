@@ -6,7 +6,6 @@ import java.math.BigInteger;
 
 import static com.tochanenko.algo.BigIntegerUtils.pow;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class MillerRabinTest {
 
