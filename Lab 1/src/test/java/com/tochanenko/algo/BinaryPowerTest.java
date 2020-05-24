@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BinaryPowerTest {
 
-    private static final Random RANDOM = new Random(System.currentTimeMillis());
-    private static final int BOUND = 5;
     private static final int ROUNDS = 16;
 
     @Test
@@ -32,18 +30,29 @@ class BinaryPowerTest {
     @Test
     void random() {
         for (int i = 0; i < ROUNDS; i++) {
-            int number = RANDOM.nextInt(BOUND) + 4;
-            int power = RANDOM.nextInt(BOUND) + 4;
-            int mod = RANDOM.nextInt(BOUND) + 4;
+
+            BigInteger number = BigIntegerUtils.random(
+                    BigInteger.valueOf(Integer.MAX_VALUE),
+                    BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.TWO),
+                    System.currentTimeMillis()
+            );
+
+            BigInteger power = BigIntegerUtils.random(
+                    BigInteger.valueOf(Integer.MAX_VALUE),
+                    BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.TWO),
+                    System.currentTimeMillis()
+            );
+
+            BigInteger mod = BigIntegerUtils.random(
+                    BigInteger.valueOf(Integer.MAX_VALUE),
+                    BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.TWO),
+                    System.currentTimeMillis()
+            );
 
             assertEquals(
-                    BigInteger.valueOf(testPow(number, power, mod)),
-                    BinaryPower.pow(BigInteger.valueOf(number), BigInteger.valueOf(power), BigInteger.valueOf(mod))
+                    number.modPow(power, mod),
+                    BinaryPower.pow(number, power, mod)
             );
         }
-    }
-
-    private int testPow(int number, int power, int mod) {
-        return ((int)Math.pow(number, power)) % mod;
     }
 }
