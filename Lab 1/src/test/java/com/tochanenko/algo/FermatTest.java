@@ -7,10 +7,10 @@ import java.math.BigInteger;
 import static com.tochanenko.algo.BigIntegerUtils.pow;
 import static org.junit.jupiter.api.Assertions.*;
 
-class FermatTestTest {
-    private static final FermatTest RANDOM_SEED = new FermatTest(64);
-    private static final FermatTest FIXED_SEED_LOW = new FermatTest(8, 12345);
-    private static final FermatTest FIXED_SEED_HIGH = new FermatTest(64, 12345);
+class FermatTest {
+    private static final Fermat RANDOM_SEED = new Fermat(64);
+    private static final Fermat FIXED_SEED_LOW = new Fermat(8, 12345);
+    private static final Fermat FIXED_SEED_HIGH = new Fermat(64, 12345);
 
     @Test
     void testIllegalArguments() {

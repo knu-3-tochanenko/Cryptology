@@ -4,16 +4,16 @@ import java.math.BigInteger;
 
 import static com.tochanenko.algo.BigIntegerUtils.random;
 
-public class FermatTest {
+public class Fermat {
     private final int k;
     private final long seed;
 
-    public FermatTest(int k) {
+    public Fermat(int k) {
         this.k = k;
         this.seed = System.currentTimeMillis();
     }
 
-    public FermatTest(int k, long seed) {
+    public Fermat(int k, long seed) {
         this.k = k;
         this.seed = seed;
     }
