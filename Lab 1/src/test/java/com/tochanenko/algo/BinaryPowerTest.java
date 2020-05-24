@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BinaryPowerTest {
 
-    private static final Random RANDOM = new Random();
-    private static final int BOUND = 7;
+    private static final Random RANDOM = new Random(System.currentTimeMillis());
+    private static final int BOUND = 5;
     private static final int ROUNDS = 16;
 
     @Test
