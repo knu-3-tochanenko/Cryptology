@@ -1,9 +1,11 @@
 package com.tochanenko.common;
 
+import com.tochanenko.algo.ExtendedEuclidean;
 import com.tochanenko.algo.Fermat;
 import com.tochanenko.algo.MillerRabin;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 
 /*
@@ -22,5 +24,7 @@ public class Main {
         System.out.println(ANSI.Purple("It works!"));
         System.out.println(new Fermat(10).test(BigInteger.valueOf(7)));
         System.out.println(new MillerRabin(10).test(BigInteger.valueOf(7)));
+
+        System.out.println(Arrays.toString(ExtendedEuclidean.compute(BigInteger.valueOf(21), BigInteger.valueOf(14))));
     }
 }

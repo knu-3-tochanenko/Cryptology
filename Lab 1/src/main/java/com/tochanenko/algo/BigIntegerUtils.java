@@ -19,6 +19,18 @@ public class BigIntegerUtils {
         return res;
     }
 
+    public static BigInteger random(long seed) {
+        return random(
+                BigInteger.valueOf(Integer.MAX_VALUE),
+                BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.valueOf(16)),
+                seed
+        );
+    }
+
+    public static BigInteger random() {
+        return random(System.currentTimeMillis());
+    }
+
     public static BigInteger pow(BigInteger number, BigInteger power) {
         if (power.compareTo(BigInteger.ZERO) == 0)
             return BigInteger.ONE;
@@ -31,5 +43,14 @@ public class BigIntegerUtils {
         }
 
         return res;
+    }
+
+    public static BigInteger[] intArrayToBigIntArray(int[] integers) {
+        BigInteger[] bigIntegers = new BigInteger[integers.length];
+        for (int i = 0; i < integers.length; i++) {
+            bigIntegers[i] = BigInteger.valueOf(integers[i]);
+        }
+
+        return bigIntegers;
     }
 }

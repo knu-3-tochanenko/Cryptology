@@ -31,23 +31,9 @@ class BinaryPowerTest {
     void random() {
         for (int i = 0; i < ROUNDS; i++) {
 
-            BigInteger number = BigIntegerUtils.random(
-                    BigInteger.valueOf(Integer.MAX_VALUE),
-                    BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.TWO),
-                    System.currentTimeMillis()
-            );
-
-            BigInteger power = BigIntegerUtils.random(
-                    BigInteger.valueOf(Integer.MAX_VALUE),
-                    BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.TWO),
-                    System.currentTimeMillis()
-            );
-
-            BigInteger mod = BigIntegerUtils.random(
-                    BigInteger.valueOf(Integer.MAX_VALUE),
-                    BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.TWO),
-                    System.currentTimeMillis()
-            );
+            BigInteger number = BigIntegerUtils.random();
+            BigInteger power = BigIntegerUtils.random();
+            BigInteger mod = BigIntegerUtils.random();
 
             assertEquals(
                     number.modPow(power, mod),
