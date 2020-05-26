@@ -24,11 +24,7 @@ class KaratsubaTest {
 
     @Test
     void one() {
-        BigInteger value = BigIntegerUtils.random(
-                BigInteger.valueOf(Integer.MAX_VALUE),
-                BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.TWO),
-                System.currentTimeMillis()
-        );
+        BigInteger value = BigIntegerUtils.random();
         assertEquals(
                 value,
                 Karatsuba.multiply(value, BigInteger.ONE)

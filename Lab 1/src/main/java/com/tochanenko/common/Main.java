@@ -25,6 +25,6 @@ public class Main {
         System.out.println(new Fermat(10).test(BigInteger.valueOf(7)));
         System.out.println(new MillerRabin(10).test(BigInteger.valueOf(7)));
 
-        System.out.println(Arrays.toString(ExtendedEuclidean.compute(BigInteger.valueOf(21), BigInteger.valueOf(14))));
+        System.out.println(Arrays.toString(ExtendedEuclidean.compute(BigInteger.valueOf(17), BigInteger.valueOf(35))));
     }
 }

@@ -45,7 +45,7 @@ public class BigIntegerUtils {
         return res;
     }
 
-    public static BigInteger[] intArrayToBigIntArray(int[] integers) {
+    public static BigInteger[] intArrayToBigIntArray(int... integers) {
         BigInteger[] bigIntegers = new BigInteger[integers.length];
         for (int i = 0; i < integers.length; i++) {
             bigIntegers[i] = BigInteger.valueOf(integers[i]);
