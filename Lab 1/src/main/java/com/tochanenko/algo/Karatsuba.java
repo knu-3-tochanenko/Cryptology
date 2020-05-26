@@ -3,9 +3,9 @@ package com.tochanenko.algo;
 import java.math.BigInteger;
 
 public class Karatsuba {
-    static BigInteger multiply(BigInteger u, BigInteger v) {
+    public static BigInteger multiply(BigInteger u, BigInteger v) {
         int length = Math.max(u.bitLength(), v.bitLength());
-        if(length < 2)
+        if (length < 2)
             return u.multiply(v);
 
         int shift = length / 2;

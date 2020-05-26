@@ -3,7 +3,7 @@ package com.tochanenko.algo;
 import java.math.BigInteger;
 
 public class BinaryPower {
-    static BigInteger pow(BigInteger number, BigInteger power, BigInteger mod) {
+    public static BigInteger pow(BigInteger number, BigInteger power, BigInteger mod) {
         BigInteger result = BigInteger.ONE;
 
         while (!power.equals(BigInteger.ZERO)) {

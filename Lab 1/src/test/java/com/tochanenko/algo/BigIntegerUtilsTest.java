@@ -4,9 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import static com.tochanenko.algo.BigIntegerUtils.*;
+import static com.tochanenko.algo.BigIntegerUtils.pow;
+import static com.tochanenko.algo.BigIntegerUtils.random;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BigIntegerUtilsTest {
 
