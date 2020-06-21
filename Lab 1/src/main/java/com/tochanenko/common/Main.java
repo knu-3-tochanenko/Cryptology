@@ -52,5 +52,23 @@ public class Main {
         System.out.println(Arrays.toString(
                 ExtendedEuclidean.compute(BigInteger.valueOf(17), BigInteger.valueOf(35))
         ));
+
+        // Diophantine Equation
+        System.out.println(ExtendedEuclidean.diophantine(
+                BigInteger.valueOf(19),
+                BigInteger.valueOf(51),
+                BigInteger.valueOf(91),
+                ExtendedEuclidean.compute(BigInteger.valueOf(19), BigInteger.valueOf(51))
+        ));
+
+        var a = BigInteger.valueOf(19);
+        var b = BigInteger.valueOf(91);
+        var c = BigInteger.valueOf(51);
+
+        var res = ExtendedEuclidean.compute(a, b);
+
+        var x = ExtendedEuclidean.diophantine(a, b, c, res);
+
+        System.out.println(a + " * " + x + " = " + a.multiply(x).mod(b) + "(mod " + b + ")");
     }
 }

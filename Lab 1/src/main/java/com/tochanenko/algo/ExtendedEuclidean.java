@@ -1,6 +1,7 @@
 package com.tochanenko.algo;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class ExtendedEuclidean {
     public static BigInteger[] compute(BigInteger a, BigInteger b) {
@@ -16,5 +17,24 @@ public class ExtendedEuclidean {
             result[2] = previousResult[1];
         }
         return result;
+    }
+
+    public static BigInteger diophantine(
+            BigInteger a,
+            BigInteger b,
+            BigInteger c,
+            BigInteger[] euclidean
+    ) {
+        if (c.equals(BigInteger.ZERO)) {
+            // There is no res for this parameters
+            return null;
+        }
+
+        System.out.println(Arrays.toString(euclidean));
+
+        BigInteger x = euclidean[1].multiply(c).divide(euclidean[0]);
+//        BigInteger y = euclidean[2].multiply(c).divide(euclidean[0]);
+
+        return x;
     }
 }

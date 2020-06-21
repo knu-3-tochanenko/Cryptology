@@ -22,7 +22,7 @@ public class BigIntegerUtils {
     public static BigInteger random(long seed) {
         return random(
                 BigInteger.valueOf(Integer.MAX_VALUE),
-                BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.valueOf(16)),
+                BigInteger.valueOf(Integer.MAX_VALUE).multiply(BigInteger.valueOf(4)),
                 seed
         );
     }
